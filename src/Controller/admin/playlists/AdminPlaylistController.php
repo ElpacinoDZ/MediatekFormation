@@ -14,8 +14,15 @@ class AdminPlaylistController extends AbstractController
     #[Route('/admin/playlists/', name: 'admin.playlists')]
     public function index(): Response
     {
+        $formations = $this->formationRepository->findAll();
+        $categories = $this->categorieRepository->findAll();
+        $playlists  = $this->playlistRepository->findAll() ;
+
         return $this->render('admin/playlists/admin.playlists.html.twig', [
             'controller_name' => 'AdminPlaylistController',
+            'formations' => $formations,
+            'playlists' => $playlists,
+            'categories'=> $categories,
         ]);
     }
     const PAGE_PLAYLISTS = "pages/playlists.html.twig";

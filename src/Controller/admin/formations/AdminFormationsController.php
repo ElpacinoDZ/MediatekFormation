@@ -15,8 +15,12 @@ class AdminFormationsController extends AbstractController
     #[Route('/admin/formations', name: 'admin.formations')]
     public function index(): Response
     {
+        $formations = $this->formationRepository->findAll();
+        $categories = $this->categorieRepository->findAll();
+
         return $this->render('admin/formations/admin.formations.html.twig', [
-            'controller_name' => 'AdminFormationsController',
+            'formations' => $formations,
+            'categories' => $categories,
         ]);
     }
 
