@@ -24,9 +24,8 @@ class AdminFormationsController extends AbstractController
         ]);
     }
 
-    const PAGE_FORMATIONS = "pages/formations.html.twig";
-    const PAGE_FORMATION = "pages/formation.html.twig";
-
+    const PAGE_FORMATIONS = "admin/formations/admin.formations.html.twig";
+    
         /**
      * @var FormationRepository
      */
@@ -42,7 +41,7 @@ class AdminFormationsController extends AbstractController
         $this->categorieRepository= $categorieRepository;
     }
       /**
-     * @Route("admin/formations/tri/{champ}/{ordre}/{table}", name="admin.formations.sort")
+     * @Route("/admin/formations/tri/{champ}/{ordre}/{table}", name="admin.formations.sort")
      * @param type $champ
      * @param type $ordre
      * @param type $table
@@ -58,7 +57,7 @@ class AdminFormationsController extends AbstractController
     }
     
     /**
-     * @Route("admin/formations/recherche/{champ}/{table}", name="admin.formations.findallcontain")
+     * @Route("/admin/formations/recherche/{champ}/{table}", name="admin.formations.findallcontain")
      * @param type $champ
      * @param Request $request
      * @param type $table
@@ -77,13 +76,13 @@ class AdminFormationsController extends AbstractController
     }
     
     /**
-     * @Route("admin/formations/formation/{id}", name="admin.formations.showone")
+     * @Route("/admin/formations/formation/{id}", name="admin.formations.showone")
      * @param type $id
      * @return Response
      */
     public function showOne($id): Response{
         $formation = $this->formationRepository->find($id);
-        return $this->render(SELF::PAGE_FORMATION, [
+        return $this->render("pages/formation.html.twig", [
             'formation' => $formation
         ]);
     }

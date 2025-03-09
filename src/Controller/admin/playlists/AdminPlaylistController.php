@@ -25,8 +25,8 @@ class AdminPlaylistController extends AbstractController
             'categories'=> $categories,
         ]);
     }
-    const PAGE_PLAYLISTS = "pages/playlists.html.twig";
-    const PAGE_PLAYLIST = "pages/playlist.html.twig";
+    const PAGE_PLAYLISTS = "admin/playlists/admin.playlists.html.twig";
+
     
     /**
      * @var PlaylistRepository
@@ -54,7 +54,7 @@ class AdminPlaylistController extends AbstractController
     }
     
     /**
-     * @Route("admin/playlists/tri/{champ}/{ordre}", name="admin.playlists.sort")
+     * @Route("/admin/playlists/tri/{champ}/{ordre}", name="admin.playlists.sort")
      * @param type $champ
      * @param type $ordre
      * @return Response
@@ -73,7 +73,7 @@ class AdminPlaylistController extends AbstractController
     }
 	
     /**
-     * @Route("admin/playlists/recherche/{champ}/{table}", name="admin.playlists.findallcontain")
+     * @Route("/admin/playlists/recherche/{champ}/{table}", name="admin.playlists.findallcontain")
      * @param type $champ
      * @param Request $request
      * @param type $table
@@ -92,7 +92,7 @@ class AdminPlaylistController extends AbstractController
     }
     
     /**
-     * @Route("admin/playlists/playlist/{id}", name="admin.playlists.showone")
+     * @Route("/admin/playlists/playlist/{id}", name="admin.playlists.showone")
      * @param type $id
      * @return Response
      */
@@ -100,7 +100,7 @@ class AdminPlaylistController extends AbstractController
         $playlist = $this->playlistRepository->find($id);
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
-        return $this->render(self::PAGE_PLAYLIST, [
+        return $this->render("pages/playlist.html.twig", [
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
             'playlistformations' => $playlistFormations
