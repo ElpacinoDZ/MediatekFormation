@@ -2,6 +2,8 @@
 
 namespace App\Controller\admin\formations;
 
+use App\Form\FormationType;
+use App\Entity\Formation;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
 use App\Repository\PlaylistRepository;
@@ -84,6 +86,37 @@ class AdminFormationsController extends AbstractController
         $formation = $this->formationRepository->find($id);
         return $this->render("pages/formation.html.twig", [
             'formation' => $formation
+        ]);
+    }
+
+    /**
+     * @Route("/admin/formations/delete/{id}", name="admin.formations.delete")
+     * @param type $id
+     * @return Response
+     */
+    public function delete(Formation $formation): Response
+    {
+        $this->formationRepository->remove($formation,true);
+        return $this->redirectToRoute('admin.formations');   
+    }
+
+   /**
+     * @Route("/admin/formations/edit/{id}", name="admin.formations.edit")
+     */
+    public function edit(Formation $formation, Request $request): Response
+    {
+        $form = $this->createForm(FormationType::class, $formation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin.formations');
+        }
+
+        return $this->render('admin/formations/admin.formation_edit.html.twig', [
+            'formation' => $formation,
+            'form' => $form->createView(),
         ]);
     }
 }

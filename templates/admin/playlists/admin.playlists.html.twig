@@ -69,13 +69,13 @@
                             {% endif %}
                         </td> 					
                         <td class="text-center">
-                            <a href="{{ path('admin.playlists.showone', {id:playlists[k].id}) }}" class="btn btn-secondary">Voir détail</a>
+                            <a href="{{ path('admin.playlists.showone', {id:playlists[k].id}) }}" class="btn btn-secondary">Détails</a>
                         </td>
                         <td class="text-center">
-                            <a href="{{ path('playlists.showone', {id:playlists[k].id}) }}" class="btn btn-primary">Modifier</a>
+                            <a href="{{ path('admin.playlists', {id:playlists[k].id}) }}" class="btn btn-primary">Modifier</a>
                         </td> 
                         <td class="text-center">
-                            <a href="{{ path('playlists.showone', {id:playlists[k].id}) }}" class="btn btn-danger">Supprimer</a>
+                            <a href="{{ path('playlists', {id:playlists[k].id}) }}" class="btn btn-danger">Supprimer</a>
                         </td>  					
                     </tr>
                 {% endfor %}	
