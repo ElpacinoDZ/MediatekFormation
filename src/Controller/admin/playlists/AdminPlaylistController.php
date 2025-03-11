@@ -2,6 +2,7 @@
 
 namespace App\Controller\admin\playlists;
 
+use App\Form\PlaylistType;
 use App\Form\FormationType;
 use App\Entity\Formation;
 use App\Entity\Playlist;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormTypeInterface;
 class AdminPlaylistController extends AbstractController
 {
     #[Route('/admin/playlists/', name: 'admin.playlists')]
@@ -30,6 +32,7 @@ class AdminPlaylistController extends AbstractController
         ]);
     }
     const PAGE_PLAYLISTS = "admin/playlists/admin.playlists.html.twig";
+    
 
     
     /**
@@ -59,8 +62,8 @@ class AdminPlaylistController extends AbstractController
     
     /**
      * @Route("/admin/playlists/tri/{champ}/{ordre}", name="admin.playlists.sort")
-     * @param Playlist $champ
-     * @param Playlist $ordre
+     * @param type $champ
+     * @param type $ordre
      * @return Response
      */
     public function sort($champ, $ordre): Response{
@@ -104,7 +107,7 @@ class AdminPlaylistController extends AbstractController
         $playlist = $this->playlistRepository->find($id);
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
-        return $this->render("pages/playlist.html.twig", [
+        return $this->render("adminpages/playlist.html.twig", [
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
             'playlistformations' => $playlistFormations
@@ -127,13 +130,13 @@ class AdminPlaylistController extends AbstractController
     }
      /**
      * @Route("/admin/playlists/edit/{id}", name="admin.playlists.edit")
-     * @param Playlist $playlist
+     * @param type $playlist
      * @return Response
      */
 
     public function edit(Request $request,Playlist $playlist): Response
     {
-        $form = $this->createForm(Playlist::class, $playlist);
+        $form = $this->createForm(PlaylistType::class, $playlist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

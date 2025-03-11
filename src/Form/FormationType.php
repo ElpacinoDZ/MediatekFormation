@@ -13,6 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
+
+
 class FormationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -54,6 +56,7 @@ class FormationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Formation::class,
+            
         ]);
     }
 }
