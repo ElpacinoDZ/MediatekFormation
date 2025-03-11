@@ -91,7 +91,7 @@ class AdminFormationsController extends AbstractController
 
     /**
      * @Route("/admin/formations/delete/{id}", name="admin.formations.delete")
-     * @param type $id
+     * @param formation $id
      * @return Response
      */
     public function delete(Formation $formation): Response
@@ -103,18 +103,19 @@ class AdminFormationsController extends AbstractController
    /**
      * @Route("/admin/formations/edit/{id}", name="admin.formations.edit")
      */
-    public function edit(Formation $formation, Request $request): Response
+    public function edit(Request $request, Formation $formation): Response
     {
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
 
             return $this->redirectToRoute('admin.formations');
         }
 
-        return $this->render('admin/formations/admin.formation_edit.html.twig', [
+        return $this->render('admin/formations/admin.formations_edit.html.twig', [
             'formation' => $formation,
             'form' => $form->createView(),
         ]);

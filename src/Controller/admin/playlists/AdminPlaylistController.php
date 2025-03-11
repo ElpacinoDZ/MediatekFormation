@@ -59,8 +59,8 @@ class AdminPlaylistController extends AbstractController
     
     /**
      * @Route("/admin/playlists/tri/{champ}/{ordre}", name="admin.playlists.sort")
-     * @param type $champ
-     * @param type $ordre
+     * @param Playlist $champ
+     * @param Playlist $ordre
      * @return Response
      */
     public function sort($champ, $ordre): Response{
@@ -110,16 +110,46 @@ class AdminPlaylistController extends AbstractController
             'playlistformations' => $playlistFormations
         ]);
     }
-    /**
+       /**
      * @Route("/admin/playlists/delete/{id}", name="admin.playlists.delete")
-     * @param type $id
+     * @param Playlist $playlist
      * @return Response
      */
-    public function delete(Playlist $playlist): Response
-    {
-        $this->playlistRepository->remove($playlist,true);
-        return $this->redirectToRoute('admin.playlists');   
+    public function delete(Playlist $playlist): Response {
+        $totalVideos = count($playlist->getFormations());
+
+        if ($totalVideos === 0) {
+            $this->playlistRepository->remove($playlist, true);
+        }   else {
+            $this->addFlash('error', 'Impossible de supprimer la playlist car celle-ci n\'est pas vide');
+        }
+        return $this->redirectToRoute('admin.playlists');
     }
+     /**
+     * @Route("/admin/playlists/edit/{id}", name="admin.playlists.edit")
+     * @param Playlist $playlist
+     * @return Response
+     */
 
+    public function edit(Request $request,Playlist $playlist): Response
+    {
+        $form = $this->createForm(Playlist::class, $playlist);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin.playlists');
+        }
+
+        return $this->render('admin/playlists/admin.playlists_edit.html.twig', [
+            'playlist' => $playlist,
+            'form' => $form->createView(),
+        ]);
+    }
+    
 }
+
+
+
