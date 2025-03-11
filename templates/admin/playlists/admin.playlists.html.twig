@@ -35,7 +35,8 @@
                 </th>
                 <th class="align-top" scope="col">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                vidéos<br />
+                vidéos
+                <br />
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ path('admin.playlists.sort', {champ:'count', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
                 <a href="{{ path('admin.playlists.sort', {champ:'count', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
@@ -70,13 +71,7 @@
                         </td> 					
                         <td class="text-center">
                             <a href="{{ path('admin.playlists.showone', {id:playlists[k].id}) }}" class="btn btn-secondary">Détails</a>
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ path('admin.playlists', {id:playlists[k].id}) }}" class="btn btn-primary">Modifier</a>
-                        </td> 
-                        <td class="text-center">
-                            <a href="{{ path('playlists', {id:playlists[k].id}) }}" class="btn btn-danger">Supprimer</a>
-                        </td>  					
+                        </td> 					
                     </tr>
                 {% endfor %}	
             {% endif %}

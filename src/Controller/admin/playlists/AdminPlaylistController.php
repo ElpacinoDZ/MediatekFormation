@@ -2,6 +2,10 @@
 
 namespace App\Controller\admin\playlists;
 
+use App\Form\FormationType;
+use App\Entity\Formation;
+use App\Entity\Playlist;
+use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
 use App\Repository\PlaylistRepository;
@@ -106,4 +110,16 @@ class AdminPlaylistController extends AbstractController
             'playlistformations' => $playlistFormations
         ]);
     }
+    /**
+     * @Route("/admin/playlists/delete/{id}", name="admin.playlists.delete")
+     * @param type $id
+     * @return Response
+     */
+    public function delete(Playlist $playlist): Response
+    {
+        $this->playlistRepository->remove($playlist,true);
+        return $this->redirectToRoute('admin.playlists');   
+    }
+
+
 }
