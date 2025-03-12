@@ -22,8 +22,11 @@
                     </li>                   
                 </ul>   
             </div>
-            <ul class="nav-item " >
-               <a href="#" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une formation</a>
+            <ul class="nav-item">
+               <a href="{{ path('admin.formations.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une formation</a>
+            </ul>
+             <ul class="nav-item">
+               <a href="{{ path('admin.playlists.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une playlist</a>
             </ul>
         </nav>        
     </div>

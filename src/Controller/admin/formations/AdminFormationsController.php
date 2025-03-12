@@ -102,7 +102,10 @@ class AdminFormationsController extends AbstractController
 
    /**
      * @Route("/admin/formations/edit/{id}", name="admin.formations.edit")
+     * @param formation $id
+     * @return Response
      */
+     
     public function edit(Request $request, Formation $formation): Response
     {
         $form = $this->createForm(FormationType::class, $formation);
@@ -116,6 +119,26 @@ class AdminFormationsController extends AbstractController
         }
 
         return $this->render('admin/formations/admin.formations_edit.html.twig', [
+            'formation' => $formation,
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/admin/formations/add', name: 'admin.formations.add')]
+    public function add(Request $request): Response
+    {
+        $formation = new Formation();
+        $form = $this->createForm(FormationType::class, $formation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($formation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin.formations');
+        }
+
+        return $this->render('admin/formations/admin.formations_add.html.twig', [
             'formation' => $formation,
             'form' => $form->createView(),
         ]);

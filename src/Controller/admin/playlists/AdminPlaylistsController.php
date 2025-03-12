@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormTypeInterface;
-class AdminPlaylistController extends AbstractController
+class AdminPlaylistsController extends AbstractController
 {
     #[Route('/admin/playlists/', name: 'admin.playlists')]
     public function index(): Response
@@ -107,7 +107,7 @@ class AdminPlaylistController extends AbstractController
         $playlist = $this->playlistRepository->find($id);
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
-        return $this->render("adminpages/playlist.html.twig", [
+        return $this->render("pages/playlist.html.twig", [
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
             'playlistformations' => $playlistFormations
@@ -147,6 +147,26 @@ class AdminPlaylistController extends AbstractController
         }
 
         return $this->render('admin/playlists/admin.playlists_edit.html.twig', [
+            'playlist' => $playlist,
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/admin/playlists/add', name: 'admin.playlists.add')]
+    public function add(Request $request): Response
+    {
+        $playlist = new Playlist();
+        $form = $this->createForm(PlaylistType::class,$playlist );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($playlist);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin.playlists');
+        }
+
+        return $this->render('admin/playlists/admin.playlists_add.html.twig', [
             'playlist' => $playlist,
             'form' => $form->createView(),
         ]);

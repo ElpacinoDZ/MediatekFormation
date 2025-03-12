@@ -1,8 +1,30 @@
-{% extends "admin/adminbasefront.html.twig" %}
+{% extends 'admin/adminbasefront.html.twig' %}
 
 {% block body %}
-    <h2>Ajouter une playlist</h2>
-    {{ form_start(formformation) }}
+    <div class="container mt-5">
+        <h1>{{ playlist.id ? 'Modifier la playlist' : 'Créer une nouvelle playlist' }}</h1>
 
-    {{ form_end(formformation) }}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            <div class="form-group row">
+                {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group row">
+                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">{{ playlist.id ? 'Enregistrer' : 'Créer' }}</button>
+                    <a href="{{ path('admin.playlists') }}" class="btn btn-secondary">Retour</a>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

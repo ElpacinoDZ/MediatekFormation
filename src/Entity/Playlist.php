@@ -118,5 +118,11 @@ class Playlist
 		}
 		return $categories;
 	}
+    public function setCategoriesPlaylist(?string $categoriesplaylist): self
+    {
+        $this->description = $categoriesplaylist;
+
+        return $this;
+    }
 	
 }
