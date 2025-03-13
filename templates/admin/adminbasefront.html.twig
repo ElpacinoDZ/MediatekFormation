@@ -13,21 +13,33 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <a class="btn btn-info" href="{{ path('accueil') }}">Accueil</a>
+                    <a class="btn btn-info" href="{{ path('accueil') }}">Se déconnecter</a>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin.formations') }}">Formations</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin.playlists') }}">Playlists</a>
-                    </li>                   
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin.categories') }}">Catégories</a>
+                    </li>                    
                 </ul>   
             </div>
-            <ul class="nav-item">
-               <a href="{{ path('admin.formations.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une formation</a>
-            </ul>
-             <ul class="nav-item">
-               <a href="{{ path('admin.playlists.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une playlist</a>
-            </ul>
+            {% if app.request.attributes.get('_route') == 'admin.formations' %}
+                <ul class="nav-item">
+                    <a href="{{ path('admin.formations.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une formation</a>
+                </ul>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'admin.playlists' %}
+                <ul class="nav-item">
+                    <a href="{{ path('admin.playlists.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une playlist</a>
+                </ul>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'admin.categories' %}
+                <ul class="nav-item">
+                    <a href="{{ path('admin.categories.add') }}" class="btn btn-primary active" role="button" aria-pressed="true">Ajouter une categorie</a>
+                </ul>
+            {% endif %}
         </nav>        
     </div>
 {% endblock %}

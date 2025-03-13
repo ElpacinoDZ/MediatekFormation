@@ -1,0 +1,33 @@
+{% extends 'admin/adminbasefront.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <h3 class="text-left align-top" scope="col">Catégories</h3>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                        <td>
+                            <h5 class="text-info">
+                                {{ categorie.name }}
+                            </h5>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('admin.categories.edit', {id:categorie.id}) }}" class="btn btn-secondary">Modifier</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('admin.categories.delete', {id:categorie.id}) }}" class="btn btn-danger" 
+                            onclick="return confirm('Etes-vous sûr de vouloir supprimer cette playlist ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}			
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
