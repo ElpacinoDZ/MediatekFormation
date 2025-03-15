@@ -2,7 +2,7 @@
 {% block title %}Modifier une formation{% endblock %}
 {% block body %}
     <div class="container mt-5">
-        <h1>Modifier la formation</h1>
+        <h1>Modifier la formation</h1>&nbsp;
 
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             <div class="form-group">
@@ -37,6 +37,13 @@
                 {{ form_label(form.categories, 'Catégories', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
                 <div class="col-sm-10">
                     {{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            &nbsp;
+             <div class="form-group">
+                {{ form_label(form.videoId, 'videoId', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.videoId, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
             &nbsp;

@@ -1,9 +1,10 @@
 {% extends 'admin/adminbasefront.html.twig' %}
 {% block title %}Modifier une playlist{% endblock %}
 {% block body %}
-    <div class="container mt-5">
-        <h1>{{ playlist.id ? 'Modifier la playlist' : 'Créer une nouvelle playlist' }}</h1>
 
+    <div class="container mt-5">
+        <h1>{{ playlist.id ? 'Modifier la playlist' : 'Créer une nouvelle playlist' }}</h1>&nbsp;
+        
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             <div class="form-group row">
                 {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
