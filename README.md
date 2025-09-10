@@ -2,9 +2,6 @@
 ## Présentation
 Ce site, développé avec Symfony 5.4, permet d'accéder aux vidéos d'auto-formation proposées par une chaîne de médiathèques et qui sont aussi accessibles sur YouTube.<br> 
 
-Le site est disponible à cette [URL](https://mediatekformation.squareface.fr/)
-Le projet d'origine est disponible à cette [URL](https://github.com/CNED-SLAM/mediatekformation)
-
 ## Les différentes pages
 Voici les 5 pages correspondant aux différents cas d’utilisation.
 ### Page 1 : la page des formations
@@ -40,66 +37,5 @@ Dans les variables d’environnement système :
         - Dans la variable path, ajouter le chemin vers le dossier bin du jdk (du genre “C:\jdk-18.×.x\bin”).
         - Créer la variable “JAVA_HOME” et mettre le chemin vers le dossier du jdk (le dossier racine, donc du genre “C:\jdk-18.×.x”).
         Enregistrer.
-- Installation de [Keycloak 19.0.1](https://github.com/keycloak/keycloak/releases/tag/19.0.1)<br>
-- Lancer Keycloak
-    - Ouvrir une fenêtre de commandes en mode admin.
-Aller dans le dossier “C:\keycloak\bin”.
-Pour lancer Keycloak, taper la commande :
-    ```bash
-    bin/kc.bat start-dev
-    ```
-    Attendre la fin du démarrage (c’est long).
-    Laisser la fenêtre ouverte (la fermer reviendrait à fermer Keycloak).
-    Dans le navigateur, aller à l’adresse :
-    localhost:8080<br>
 
-- Configuration de Keycloak
-    - Créer le royaume
-        - Dans master, choisir “create realm” pour créer un nouveau royaume en lui donnant un nom (par exemple “myapplis”) puis “Create”.
-Attention, ce nom doit être identique à celui configuré dans l’application qui utilise Keycloak (par exemple, pour l’application Symfony c’est le nom de “realm” dans le fichier “knpu_oauth2_client.yaml” qui est dans “config > packages”).
-    -  Créer le client
-        - Dans Clients, cliquer sur “Create client”.
-Donner un id au client (Client ID) qui correspondra à l’application qui sollicite Keycloak (pour l’application “mesvoyages”, c’est le nom “mesvoyages” qui avait été donné) puis “Save”.
-Attention, ce nom doit être identique à celui configuré dans l’application qui utilise Keycloak (par exemple, pour l’application Symfony c’est le nom de “KEYCLOAK_CLIENTID” dans le fichier “.env”).
-Vous pouvez saisir la même valeur pour le Name.
-Lors des différentes étapes de création du client, contrôlez les paramètres suivants :
-        - Client type : OpenID Connect
-        - Always display in console : Off
-        - Client authentication : On
-        - Authorisation : Off
-        - Standard flow : On
-        - Implicit flow : On
-        - Direct access grants : On
-        - Service accounts roles : Off
-        - OAuth 2.0 Device Authorization Grant : Off
-        - OIDC CIBA Grant : Off
-        Pensez à enregistrer (Save en bas). Une fois le client créé, vous êtes normalement dans l’onglet “Settings”. Faites les contrôles et modifications suivantes :
-        - Enabled : On (en haut à droite)
-        - Valid redirect URIs (dans Access settings) : *
-        - Consent required (dans Login settings) : On
-        - Display client on screen : On
-        - Front channel logout (dans logout settings) : Off
-        - Backchannel logout session required : On
-        - Backchannel logout revoke offline sessions : Off
-        Pensez à enregistrer (Save en bas)
-        Toujours sur ce client, allez dans l’onglet “Credentials”.
-        Puisque vous avez défini un accès “confidential”, vous avez un code secret (c’est le “client secret”).
-        Copiez ce code secret et gardez-le : il va être inséré dans un fichier du projet.
-    -  Créer un utilisateur
-        - Dans “Users”, cliquer sur “Create new user”.
-        Donner le nom de l’utilisateur qui doit avoir les droits pour accéder à certaines parties de l’application (par exemple la partie “admin”).
-        Donner un email (peu importe), Enabled (ON), Email Verified (OFF), puis “Create”.
-        Aller dans “Credentials” pour définir un mot de passe (sécurisé), sans oublier de mettre
-        “Tempory” à OFF.
 
-    - Ne pas enregistrer les cookies
-        - Pour que la demande de déconnexion se fasse correctement, mettre les cookies à “Disabled” (Authentication > Flows > Browser > Cookie)
-
-    - Modifier le fichier .env
-        - Remplacer les valeurs de ces lignes par vos informations: 
-            ```bash
-            DATABASE_URL="mysql://UTILISATEUR:MOTDEPASSE@127.0.0.1:3306/BDD"
-            KEYCLOAK_SECRET=xxxxxxxxxxxx
-            KEYCLOAK_CLIENTID=xxxxxxxxxxx
-            KEYCLOAK_APP_URL=http://localhost:8080
-            ```
